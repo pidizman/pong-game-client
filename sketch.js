@@ -18,7 +18,7 @@ function setup() {
   createCanvas(800, 500);
 
   // Připojení k Node.js serveru a odeslání jména v query
-  const socket = io("http://localhost:3000", { query: { name } });
+  const socket = io("https://pong-game-server-production-89ae.up.railway.app", { query: { name } });
 
   socket.on("connect_error", () => {
     alert("Server neběží");
