@@ -66,6 +66,7 @@ function draw() {
   } else {
     drawCenterLine();
     drawScore();
+    drawNames();
 
     if (gameOver) {
       drawGameOverScreen();
@@ -117,6 +118,32 @@ function drawScore() {
   noStroke();
   text(leftScore, width / 2 - 50, 40);
   text(rightScore, width / 2 + 50, 40);
+}
+
+// Vykreslí jména obou hráčů do horních rohů.
+function drawNames() {
+  // Načtení uložených dat z prohlížeče (uloženo při startu v sketch.js)
+  const playerName = localStorage.getItem("playerName");
+  const opponentName = localStorage.getItem("opponentName");
+  
+  // Zjištění, zda tento konkrétní klient hraje za levou stranu
+  const isLeft = localStorage.getItem("side") === "left";
+
+  // Logika pro správné umístění jmen:
+  // Pokud jsem "left", moje jméno jde doleva. Pokud ne, patří tam jméno soupeře.
+  const leftName = isLeft ? playerName : opponentName;
+  const rightName = isLeft ? opponentName : playerName;
+
+  // Nastavení barvy textu
+  fill(255);
+
+  // Vykreslení jména vlevo (zarovnáno k levému okraji)
+  textAlign(LEFT);
+  text(leftName, 20, 40);
+
+  // Vykreslení jména vpravo (zarovnáno k pravému okraji plátna)
+  textAlign(RIGHT);
+  text(rightName, width - 20, 40);
 }
 
 // Funkce pro ukončení hry
